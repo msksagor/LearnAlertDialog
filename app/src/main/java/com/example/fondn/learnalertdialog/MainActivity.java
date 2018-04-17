@@ -1,18 +1,22 @@
 package com.example.fondn.learnalertdialog;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private Button one,two,threeMCQ,fourRadio;
-    ArrayList<Integer>arrayList;
+    private Button one, two, threeMCQ, fourRadio, editButton;
+    private EditText editText;
+    ArrayList<Integer> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         two = (Button) findViewById(R.id.twoButton);
         threeMCQ = (Button) findViewById(R.id.threeMCQButton);
         fourRadio = (Button) findViewById(R.id.forRadioButton);
+        editButton = (Button) findViewById(R.id.editBoxButton);
+        editText = (EditText) findViewById(R.id.mainEditTextID);
 
         one.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] items = {"sagor","noman","Shanta","Sabuj"};
+                final String[] items = {"sagor", "noman", "Shanta", "Sabuj"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Select One From Here");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "You choose : "+items[which], Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "You choose : " + items[which], Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.show();
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 arrayList = new ArrayList<Integer>();
-                final String[] items = {"sagor","noman","Shanta","Sabuj"};
+                final String[] items = {"sagor", "noman", "Shanta", "Sabuj"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Select by MCQ");
                 builder.setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
@@ -83,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String selectIndex = "";
-                        for (Integer i : arrayList){
-                            selectIndex +=i+" ";
+                        for (Integer i : arrayList) {
+                            selectIndex += i + " ";
                         }
                         Toast.makeText(MainActivity.this, selectIndex, Toast.LENGTH_SHORT).show();
                     }
@@ -97,13 +103,13 @@ public class MainActivity extends AppCompatActivity {
         fourRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] items = {"sagor","noman","Shanta","Sabuj"};
+                final String[] items = {"sagor", "noman", "Shanta", "Sabuj"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Select From Radio");
                 builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "You Select :"+which , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "You Select :" + which, Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.show();
@@ -111,5 +117,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.customlayuot, null);
+                final EditText eT = (EditText) dialogView.findViewById(R.id.customLayoutEditTextID);
+                builder.setView(dialogView);
+                builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name = eT.getText().toString();
+                        Toast.makeText(MainActivity.this, "Successfully Login: " + name, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.show();
+            }
+        });
     }
 }

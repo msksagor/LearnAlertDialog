@@ -31,5 +31,16 @@
         android:layout_height="wrap_content"
         android:text="Choose Radio Button" />
 
+    <EditText
+        android:id="@+id/mainEditTextID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/editBoxButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit" />
+
 
 </LinearLayout>
